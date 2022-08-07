@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option go_package = "./services/customersapp;customersapp";
+package customersapp;
+import "google/api/annotations.proto";
+
+service Customer{
+    rpc GetCustomers (GetCustomersReq) returns (GetCustomersResp){
+        option (google.api.http) = {
+            post:"/customer",
+            body:"*"
+        };
+    }
+    rpc GetCustomer (Id) returns (CustomerInfo){
+        option (google.api.http) = {
+            get: "/customer/{id}"
+        };
+    }
+    rpc CreateCustomer (CustomerInfo) returns (Id){
+        option (google.api.http) = {
+            post: "/createcustomer"
+            body: "*"
+        };
+    }
+    rpc UpdateCustomer (CustomerInfo) returns (Status){
+        option (google.api.http) = {
+            put: "/customer"
+            body: "*"
+        };
+    }
+    rpc DeleteCustomer (Id) returns (Status){
+        option (google.api.http) = {
+            delete: "/customer/{id}",
+        };
+    }
+}
+
+message CustomerInfo {
+    int64 id = 1;
+    string firstname = 2;
+    string lastname = 3;
+    int64 age = 4;
+}
+
+message Id {
+    int64 id = 1;
+}
+
+message Status{
+    int64 value = 1;
+}
+
+message GetCustomersReq {
+    // Requested page
+    int64 page = 1;
+    // Requested number of items per page
+    int64 per_page = 2;
+  }
+
+message GetCustomersResp {
+    // The collection of books
+    repeated CustomerInfo customers = 1;
+}

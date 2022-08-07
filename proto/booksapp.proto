@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+option go_package = "./services/booksapp;booksapp";
+package booksapp;
+import "google/api/annotations.proto";
+
+service Book{
+    rpc GetBooks (GetBooksReq) returns (GetBooksResp){
+        option (google.api.http) = {
+            post:"/book",
+            body:"*"
+        };
+    }
+    rpc GetBook (Id) returns (BookInfo){
+        option (google.api.http) = {
+            get: "/book/{id}"
+        };
+    }
+    rpc CreateBook (BookInfo) returns (Id){
+        option (google.api.http) = {
+            post: "/createbook"
+            body: "*"
+        };
+    }
+    rpc UpdateBook (BookInfo) returns (Status){
+        option (google.api.http) = {
+            put: "/book"
+            body: "*"
+        };
+    }
+    rpc DeleteBook (Id) returns (Status){
+        option (google.api.http) = {
+            delete: "/book/{id}"
+        };
+    }
+}
+
+message BookInfo {
+    int64 id = 1;
+    string title = 2;
+    string genre = 3;
+    string author = 4;
+}
+
+message Id {
+    int64 id = 1;
+}
+
+message Status{
+    int64 value = 1;
+}
+
+message GetBooksReq {
+    // Requested page
+    int64 page = 1;
+    // Requested number of items per page
+    int64 per_page = 2;
+  }
+
+message GetBooksResp {
+    // The collection of books
+    repeated BookInfo books = 1;
+}
