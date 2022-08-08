@@ -17,13 +17,18 @@ go install \
 <p>For more details: https://github.com/grpc-ecosystem/grpc-gateway</p>
 
 <h1>#Run</h1>
-<b>#1 Generate protocol buffer files cr</b>
+<b>(Optional) Generate protocol buffer files</b>
 <pre>
   make create
 </pre>
 <p>For more details: Makefile</p>
-
-<b>#2 Run go</b>
+    
+<b>#1 Run postgres</b>
+<pre>
+  docker compose up
+</pre>
+    
+<b>#1 Run go</b>
 <pre>
   make go-run
 </pre>
