@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-option go_package = "./services/customersapp;customersapp";
-package customersapp;
+option go_package = "/customersapp";
+// package customersapp;
 import "google/api/annotations.proto";
 
 service Customer{

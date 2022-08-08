@@ -12,8 +12,8 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 
 	_ "github.com/lib/pq"
-	pb "github.com/newzyz/go-grpc/server/services/booksapp"
-	pb2 "github.com/newzyz/go-grpc/server/services/customersapp"
+	pb "github.com/newzyz/go-grpc/services/booksappv2"
+	pb2 "github.com/newzyz/go-grpc/services/customersappv2"
 	"google.golang.org/grpc"
 )
 
