@@ -14,6 +14,7 @@ services:
 
     volumes:
       - ./postgres-db:/var/lib/postgresql/data
+      - ./dbbackup.sql-file:/docker-entrypoint-initdb.d 
 
   # api:
   #   build: .

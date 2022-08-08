@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug 08 20:52:23 2022
+# Make data base, printed on Mon Aug 08 22:47:37 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ USERPROFILE = C:\Users\Newzyz
 # environment
 LOCALAPPDATA = C:\Users\Newzyz\AppData\Local
 # environment
-VSCODE_CWD = C:\Users\Newzyz\Desktop\go-grpc
+VSCODE_CWD = C:\Users\Newzyz\Desktop\myfol\go-grpc
 # environment
 CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
 # environment
@@ -69,7 +69,7 @@ MAKEFLAGS = pqrR
 # environment
 ONEDRIVE = C:\Users\Newzyz\OneDrive
 # makefile
-CURDIR := c:/Users/Newzyz/Desktop/go-grpc
+CURDIR := c:/Users/Newzyz/Desktop/myfol/go-grpc
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
@@ -219,9 +219,9 @@ PROCESSOR_IDENTIFIER = AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD
 
 # Directories
 
-# . (key c:/Users/Newzyz/Desktop/go-grpc, mtime 1659959509): 16 files, no impossibilities.
+# . (key c:/Users/Newzyz/Desktop/myfol/go-grpc, mtime 1659973643): 17 files, no impossibilities.
 
-# 16 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -239,17 +239,9 @@ db-run:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-08 18:43:08
+#  Last modified 2022-08-08 22:47:22
 #  File has been updated.
 #  Successfully updated.
-
-clean-proto:
-#  Implicit rule sea 
-rch has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 15):
-	rmdir server\services\booksapp\*.go
 
 go-run:
 #  Implicit rule search has not been done.
@@ -284,19 +276,20 @@ create:
 	protoc -I . --grpc-gateway_out ./services ./proto/customersapp.proto	
 
 # files hash-table stats:
-# Load=8/1024=1%, Rehash=0, Collisions=0/18=0%
+# Load=7/1024= 
+1%, Rehash=0, Collisions=0/17=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 23 / storage = 186 B / avg = 8 B
-# current buf: size = 8174 B / used = 186 B / count = 23 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 23 / storage = 185 B / avg = 8 B
+# current buf: size = 8174 B / used = 185 B / count = 23 / avg = 8 B
 
-# strcache performance: lookups = 31 / hit rate = 25%
+# strcache performance: lookups = 30 / hit rate = 23%
 # hash-table stats:
-# Load=23/8192=0%, Rehash=0, Collisions=0/31=0%
-# Finished Make data base on Mon Aug 08 20:52:23 2022
+# Load=23/8192=0%, Rehash=0, Collisions=0/30=0%
+# Finished Make data base on Mon Aug 08 22:47:37 2022
 
  
