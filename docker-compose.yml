@@ -3,6 +3,7 @@ version: "4"
 services:
   postgres:
     image: postgres
+    build: .
     restart: always
     container_name: database
     environment:
@@ -13,8 +14,7 @@ services:
       - 5435:5432
 
     volumes:
-      - ./postgres-db:/var/lib/postgresql/data
-      - ./dbbackup.sql-file:/docker-entrypoint-initdb.d 
+      - ./postgres:/var/lib/postgresql/data
 
   # api:
   #   build: .
