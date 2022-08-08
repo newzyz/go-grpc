@@ -1,7 +1,11 @@
 make.exe --dry-run --always-make --keep-going --print-directory
 make: Entering directory 'c:/Users/Newzyz/Desktop/go-grpc'
-protoc --go_out=./server ./proto/*.proto 
-protoc --go-grpc_out=./server ./proto/*.proto  
-protoc -I . --grpc-gateway_out ./server ./proto/*.proto	
+protoc --go_out=./services ./proto/booksapp.proto 
+protoc --go-grpc_out=./services ./proto/booksapp.proto  
+protoc -I . --grpc-gateway_out ./services ./proto/booksapp.proto	
+ 
+protoc --go_out=./services ./proto/customersapp.proto 
+protoc --go-grpc_out=./services ./proto/customersapp.proto  
+protoc -I . --grpc-gateway_out ./services ./proto/customersapp.proto	
 make: Leaving directory 'c:/Users/Newzyz/Desktop/go-grpc'
  

@@ -15,14 +15,14 @@ services:
     volumes:
       - ./postgres-db:/var/lib/postgresql/data
 
-  api:
-    build: .
-    container_name: golang
-    # restart: unless-stopped
-    command: bash -c "go mod tidy && go run server/server.go"
-    ports:
-      - 3000:3000
-    volumes:
-      - .:/api
-    depends_on:
-      - postgres
+  # api:
+  #   build: .
+  #   container_name: golang
+  #   # restart: unless-stopped
+  #   command: bash -c "go mod tidy && go run server/server.go"
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - .:/api
+  #   depends_on:
+  #     - postgres

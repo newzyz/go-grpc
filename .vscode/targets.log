@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug 08 15:10:02 2022
+# Make data base, printed on Mon Aug 08 20:52:23 2022
 
 # Variables
 
@@ -39,7 +39,7 @@ GOPATH = C:\Users\Newzyz\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_10764_UBYWLXJCICRBBMSP
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_23540_GWMWKOOXAEKZAOTM
 # environment
 FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
@@ -89,7 +89,7 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 10764
+VSCODE_PID = 23540
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -219,9 +219,9 @@ PROCESSOR_IDENTIFIER = AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD
 
 # Directories
 
-# . (key c:/Users/Newzyz/Desktop/go-grpc, mtime 1659945995): 14 files, no impossibilities.
+# . (key c:/Users/Newzyz/Desktop/go-grpc, mtime 1659959509): 16 files, no impossibilities.
 
-# 14 files, no impossibilities in 1 directories.
+# 16 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -229,26 +229,34 @@ PROCESSOR_IDENTIFIER = AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD
 
 # Files
 
+db-run:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 10):
+	docker compose up
+
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-08 14:18:23
+#  Last modified 2022-08-08 18:43:08
 #  File has been updated.
 #  Successfully updated.
 
-clean:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 7):
-	rmdir server/services
-
 clean-proto:
+#  Implicit rule sea 
+rch has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 15):
+	rmdir server\services\booksapp\*.go
+
+go-run:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 13):
-	rmdir /s server\services
+#  recipe to execute (from 'Makefile', line 12):
+	go run server/server.go
 
 # Not a target:
 .DEFAULT:
@@ -263,21 +271,17 @@ all:
 #  File does not exist.
 #  File has not been updated.
 
-run:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 10):
-	go run server/server.go
-
 create:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 2):
-	protoc --go_out=./server ./proto/*.proto 
-	protoc --go-grpc_out=./server ./proto/*.proto  
-	protoc -I . --grpc-gateway_out ./server ./proto/*.proto	
+	protoc --go_out=./services ./proto/booksapp.proto 
+	protoc --go-grpc_out=./services ./proto/booksapp.proto  
+	protoc -I . --grpc-gateway_out ./services ./proto/booksapp.proto	
+	protoc --go_out=./services ./proto/customersapp.proto 
+	protoc --go-grpc_out=./services ./proto/customersapp.proto  
+	protoc -I . --grpc-gateway_out ./services ./proto/customersapp.proto	
 
 # files hash-table stats:
 # Load=8/1024=1%, Rehash=0, Collisions=0/18=0%
@@ -287,12 +291,12 @@ create:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 21 / storage = 163 B / avg = 7 B
-# current buf: size = 8174 B / used = 163 B / count = 21 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 23 / storage = 186 B / avg = 8 B
+# current buf: size = 8174 B / used = 186 B / count = 23 / avg = 8 B
 
-# strcache performance: lookups = 29 / hit rate = 27%
+# strcache performance: lookups = 31 / hit rate = 25%
 # hash-table stats:
-# Load=21/8192=0%, Rehash=0, Collisions=0/29=0%
-# Finished Make data base on Mon Aug 08 15:10:02 2022
+# Load=23/8192=0%, Rehash=0, Collisions=0/31=0%
+# Finished Make data base on Mon Aug 08 20:52:23 2022
 
  

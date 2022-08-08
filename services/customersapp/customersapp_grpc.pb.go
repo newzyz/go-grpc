@@ -39,7 +39,7 @@ func NewCustomerClient(cc grpc.ClientConnInterface) CustomerClient {
 
 func (c *customerClient) GetCustomers(ctx context.Context, in *GetCustomersReq, opts ...grpc.CallOption) (*GetCustomersResp, error) {
 	out := new(GetCustomersResp)
-	err := c.cc.Invoke(ctx, "/Customer/GetCustomers", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/customersapp.Customer/GetCustomers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (c *customerClient) GetCustomers(ctx context.Context, in *GetCustomersReq, 
 
 func (c *customerClient) GetCustomer(ctx context.Context, in *Id, opts ...grpc.CallOption) (*CustomerInfo, error) {
 	out := new(CustomerInfo)
-	err := c.cc.Invoke(ctx, "/Customer/GetCustomer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/customersapp.Customer/GetCustomer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *customerClient) GetCustomer(ctx context.Context, in *Id, opts ...grpc.C
 
 func (c *customerClient) CreateCustomer(ctx context.Context, in *CustomerInfo, opts ...grpc.CallOption) (*Id, error) {
 	out := new(Id)
-	err := c.cc.Invoke(ctx, "/Customer/CreateCustomer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/customersapp.Customer/CreateCustomer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func (c *customerClient) CreateCustomer(ctx context.Context, in *CustomerInfo, o
 
 func (c *customerClient) UpdateCustomer(ctx context.Context, in *CustomerInfo, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
-	err := c.cc.Invoke(ctx, "/Customer/UpdateCustomer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/customersapp.Customer/UpdateCustomer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (c *customerClient) UpdateCustomer(ctx context.Context, in *CustomerInfo, o
 
 func (c *customerClient) DeleteCustomer(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
-	err := c.cc.Invoke(ctx, "/Customer/DeleteCustomer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/customersapp.Customer/DeleteCustomer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func _Customer_GetCustomers_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Customer/GetCustomers",
+		FullMethod: "/customersapp.Customer/GetCustomers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServer).GetCustomers(ctx, req.(*GetCustomersReq))
@@ -154,7 +154,7 @@ func _Customer_GetCustomer_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Customer/GetCustomer",
+		FullMethod: "/customersapp.Customer/GetCustomer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServer).GetCustomer(ctx, req.(*Id))
@@ -172,7 +172,7 @@ func _Customer_CreateCustomer_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Customer/CreateCustomer",
+		FullMethod: "/customersapp.Customer/CreateCustomer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServer).CreateCustomer(ctx, req.(*CustomerInfo))
@@ -190,7 +190,7 @@ func _Customer_UpdateCustomer_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Customer/UpdateCustomer",
+		FullMethod: "/customersapp.Customer/UpdateCustomer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServer).UpdateCustomer(ctx, req.(*CustomerInfo))
@@ -208,7 +208,7 @@ func _Customer_DeleteCustomer_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Customer/DeleteCustomer",
+		FullMethod: "/customersapp.Customer/DeleteCustomer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServer).DeleteCustomer(ctx, req.(*Id))
@@ -220,7 +220,7 @@ func _Customer_DeleteCustomer_Handler(srv interface{}, ctx context.Context, dec 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Customer_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "Customer",
+	ServiceName: "customersapp.Customer",
 	HandlerType: (*CustomerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

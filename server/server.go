@@ -12,8 +12,8 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 
 	_ "github.com/lib/pq"
-	pb "github.com/newzyz/go-grpc/services/booksappv2"
-	pb2 "github.com/newzyz/go-grpc/services/customersappv2"
+	pb "github.com/newzyz/go-grpc/services/booksapp"
+	pb2 "github.com/newzyz/go-grpc/services/customersapp"
 	"google.golang.org/grpc"
 )
 
@@ -23,8 +23,8 @@ const (
 )
 const (
 	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
+	port     = 5435
+	user     = "root"
 	password = "root"
 	dbname   = "postgres"
 )
