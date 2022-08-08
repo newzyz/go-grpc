@@ -7,7 +7,7 @@ create:
 	protoc -I . --grpc-gateway_out ./services ./proto/customersapp.proto	
 
 db-run:
-	docker compose up
+	docker-compose up
 go-run:
 	go run server/server.go
 
