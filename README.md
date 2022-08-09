@@ -25,12 +25,14 @@ go install \
     
 <b>#1 Run postgres</b>
 <pre>
-  docker compose up
+  make db-run #set postgres image and container
 </pre>
-    
+ <p> #Use dbbackup.sql in dir /restored_db/dbbackup.sql to restored DB </p>
+ 
 <b>#1 Run go</b>
+<p>Run go locally </p>
 <pre>
-  make go-run
+  make go-run 
 </pre>
 
 <h1>#Request Spec</h1>
