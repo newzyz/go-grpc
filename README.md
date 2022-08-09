@@ -37,8 +37,8 @@ go install \
   Use dbbackup.sql in directory /restored_db/dbbackup.sql to manually restored DB HOST: "localhost" PORT: "5435" USER:"root" PASSWORD:"root"
 </pre>
     
-<b>#1 Run go</b>
-<p>Run go locally </p>
+<b>Run go</b>
+<p>To Run go locally </p>
 <pre>
   make go-run 
 </pre>
