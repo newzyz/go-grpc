@@ -30,7 +30,7 @@ go install \
 <pre>
   docker compose up
 </pre>
-    
+<b>Manually</b>
 <pre> 
   Use dbbackup.sql in directory /restored_db/dbbackup.sql to manually restored DB PORT: "localhost:5435" USER:"root" PASSWORD:"root"
 </pre>
