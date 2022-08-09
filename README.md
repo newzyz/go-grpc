@@ -30,7 +30,7 @@ go install \
 <pre>
   docker compose up
 </pre>
-***if requests and founded connect: connection refused error change go to /server/server.go change constant host to that docker host instead and build again***
+<- if requests and founded connect: connection refused error change go to /server/server.go change constant host to that docker host instead and build again ->
 
 <b>Manually</b>
 <pre> 
