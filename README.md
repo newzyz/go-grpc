@@ -32,7 +32,7 @@ go install \
 </pre>
     
 <pre> 
-    #Use dbbackup.sql in directory /restored_db/dbbackup.sql to restored DB PORT: localhost:5435 USER:root PASSWORD:root manually
+#Use dbbackup.sql in directory /restored_db/dbbackup.sql to restored DB PORT: localhost:5435 USER:root PASSWORD:root manually
 </pre>
     
 <b>#1 Run go</b>
