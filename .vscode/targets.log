@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug 08 23:01:26 2022
+# Make data base, printed on Tue Aug 09 15:58:18 2022
 
 # Variables
 
@@ -39,7 +39,7 @@ GOPATH = C:\Users\Newzyz\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_23540_GWMWKOOXAEKZAOTM
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_6972_CSKCPAJOHPHETJFL
 # environment
 FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
@@ -89,7 +89,7 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 23540
+VSCODE_PID = 6972
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -219,10 +219,9 @@ PROCESSOR_IDENTIFIER = AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD
 
 # Directories
 
-# . (key c:/Users/Newzyz/Desktop/mad/go-grpc 
-, mtime 1659974475): 17 files, no impossibilities.
+# . (key c:/Users/Newzyz/Desktop/mad/go-grpc, mtime 1659983392): 18 files, no impossibilities.
 
-# 17 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -235,12 +234,12 @@ db-run:
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 10):
-	docker compose up
+	docker-compose up
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-08 23:01:15
+#  Last modified 2022-08-09 01:38:18
 #  File has been updated.
 #  Successfully updated.
 
@@ -284,12 +283,12 @@ create:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 23 / storage = 186 B / avg = 8 B
-# current buf: size = 8174 B / used = 186 B / count = 23 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 24 / storage = 193 B / avg = 8 B
+# current buf: size = 8174 B / used = 193 B / count = 24 / avg = 8 B
 
-# strcache performance: lookups = 30 / hit rate = 23%
+# strcache performance: lookups = 31 / hit rate = 22%
 # hash-table stats:
-# Load=23/8192=0%, Rehash=0, Collisions=0/30=0%
-# Finished Make data base on Mon Aug 08 23:01:26 2022
+# Load=24/8192=0%, Rehash=0, Collisions=0/31=0%
+# Finished Make data base on Tue Aug 09 15:58:18 2022
 
  

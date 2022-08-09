@@ -24,3 +24,4 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 )
+

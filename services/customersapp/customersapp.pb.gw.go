@@ -251,7 +251,7 @@ func RegisterCustomerHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/customersapp.Customer/GetCustomers", runtime.WithHTTPPathPattern("/customer"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Customer/GetCustomers", runtime.WithHTTPPathPattern("/customer"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -276,7 +276,7 @@ func RegisterCustomerHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/customersapp.Customer/GetCustomer", runtime.WithHTTPPathPattern("/customer/{id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Customer/GetCustomer", runtime.WithHTTPPathPattern("/customer/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -301,7 +301,7 @@ func RegisterCustomerHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/customersapp.Customer/CreateCustomer", runtime.WithHTTPPathPattern("/createcustomer"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Customer/CreateCustomer", runtime.WithHTTPPathPattern("/createcustomer"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -326,7 +326,7 @@ func RegisterCustomerHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/customersapp.Customer/UpdateCustomer", runtime.WithHTTPPathPattern("/customer"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Customer/UpdateCustomer", runtime.WithHTTPPathPattern("/customer"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -351,7 +351,7 @@ func RegisterCustomerHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/customersapp.Customer/DeleteCustomer", runtime.WithHTTPPathPattern("/customer/{id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Customer/DeleteCustomer", runtime.WithHTTPPathPattern("/customer/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -415,7 +415,7 @@ func RegisterCustomerHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/customersapp.Customer/GetCustomers", runtime.WithHTTPPathPattern("/customer"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Customer/GetCustomers", runtime.WithHTTPPathPattern("/customer"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -437,7 +437,7 @@ func RegisterCustomerHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/customersapp.Customer/GetCustomer", runtime.WithHTTPPathPattern("/customer/{id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Customer/GetCustomer", runtime.WithHTTPPathPattern("/customer/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -459,7 +459,7 @@ func RegisterCustomerHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/customersapp.Customer/CreateCustomer", runtime.WithHTTPPathPattern("/createcustomer"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Customer/CreateCustomer", runtime.WithHTTPPathPattern("/createcustomer"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -481,7 +481,7 @@ func RegisterCustomerHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/customersapp.Customer/UpdateCustomer", runtime.WithHTTPPathPattern("/customer"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Customer/UpdateCustomer", runtime.WithHTTPPathPattern("/customer"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -503,7 +503,7 @@ func RegisterCustomerHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/customersapp.Customer/DeleteCustomer", runtime.WithHTTPPathPattern("/customer/{id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Customer/DeleteCustomer", runtime.WithHTTPPathPattern("/customer/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return

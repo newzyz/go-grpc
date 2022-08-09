@@ -16,14 +16,14 @@ services:
     volumes:
       - ./postgres:/var/lib/postgresql/data
 
-  # api:
-  #   build: .
-  #   container_name: golang
-  #   # restart: unless-stopped
-  #   command: bash -c "go mod tidy && go run server/server.go"
-  #   ports:
-  #     - 3000:3000
-  #   volumes:
-  #     - .:/api
-  #   depends_on:
-  #     - postgres
+  api:
+    build: .
+    container_name: grpc
+    # restart: unless-stopped
+    command: go run /api/server/server.go
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/api
+    depends_on:
+      - postgres

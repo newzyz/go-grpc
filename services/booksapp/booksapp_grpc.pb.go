@@ -39,7 +39,7 @@ func NewBookClient(cc grpc.ClientConnInterface) BookClient {
 
 func (c *bookClient) GetBooks(ctx context.Context, in *GetBooksReq, opts ...grpc.CallOption) (*GetBooksResp, error) {
 	out := new(GetBooksResp)
-	err := c.cc.Invoke(ctx, "/booksapp.Book/GetBooks", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/Book/GetBooks", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (c *bookClient) GetBooks(ctx context.Context, in *GetBooksReq, opts ...grpc
 
 func (c *bookClient) GetBook(ctx context.Context, in *Id, opts ...grpc.CallOption) (*BookInfo, error) {
 	out := new(BookInfo)
-	err := c.cc.Invoke(ctx, "/booksapp.Book/GetBook", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/Book/GetBook", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +57,7 @@ func (c *bookClient) GetBook(ctx context.Context, in *Id, opts ...grpc.CallOptio
 
 func (c *bookClient) CreateBook(ctx context.Context, in *BookInfo, opts ...grpc.CallOption) (*Id, error) {
 	out := new(Id)
-	err := c.cc.Invoke(ctx, "/booksapp.Book/CreateBook", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/Book/CreateBook", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +66,7 @@ func (c *bookClient) CreateBook(ctx context.Context, in *BookInfo, opts ...grpc.
 
 func (c *bookClient) UpdateBook(ctx context.Context, in *BookInfo, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
-	err := c.cc.Invoke(ctx, "/booksapp.Book/UpdateBook", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/Book/UpdateBook", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (c *bookClient) UpdateBook(ctx context.Context, in *BookInfo, opts ...grpc.
 
 func (c *bookClient) DeleteBook(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
-	err := c.cc.Invoke(ctx, "/booksapp.Book/DeleteBook", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/Book/DeleteBook", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +136,7 @@ func _Book_GetBooks_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/booksapp.Book/GetBooks",
+		FullMethod: "/Book/GetBooks",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).GetBooks(ctx, req.(*GetBooksReq))
@@ -154,7 +154,7 @@ func _Book_GetBook_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/booksapp.Book/GetBook",
+		FullMethod: "/Book/GetBook",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).GetBook(ctx, req.(*Id))
@@ -172,7 +172,7 @@ func _Book_CreateBook_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/booksapp.Book/CreateBook",
+		FullMethod: "/Book/CreateBook",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).CreateBook(ctx, req.(*BookInfo))
@@ -190,7 +190,7 @@ func _Book_UpdateBook_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/booksapp.Book/UpdateBook",
+		FullMethod: "/Book/UpdateBook",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).UpdateBook(ctx, req.(*BookInfo))
@@ -208,7 +208,7 @@ func _Book_DeleteBook_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/booksapp.Book/DeleteBook",
+		FullMethod: "/Book/DeleteBook",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).DeleteBook(ctx, req.(*Id))
@@ -220,7 +220,7 @@ func _Book_DeleteBook_Handler(srv interface{}, ctx context.Context, dec func(int
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Book_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "booksapp.Book",
+	ServiceName: "Book",
 	HandlerType: (*BookServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

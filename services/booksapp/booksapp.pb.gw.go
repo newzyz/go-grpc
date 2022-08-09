@@ -251,7 +251,7 @@ func RegisterBookHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/booksapp.Book/GetBooks", runtime.WithHTTPPathPattern("/book"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Book/GetBooks", runtime.WithHTTPPathPattern("/book"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -276,7 +276,7 @@ func RegisterBookHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/booksapp.Book/GetBook", runtime.WithHTTPPathPattern("/book/{id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Book/GetBook", runtime.WithHTTPPathPattern("/book/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -301,7 +301,7 @@ func RegisterBookHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/booksapp.Book/CreateBook", runtime.WithHTTPPathPattern("/createbook"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Book/CreateBook", runtime.WithHTTPPathPattern("/createbook"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -326,7 +326,7 @@ func RegisterBookHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/booksapp.Book/UpdateBook", runtime.WithHTTPPathPattern("/book"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Book/UpdateBook", runtime.WithHTTPPathPattern("/book"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -351,7 +351,7 @@ func RegisterBookHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/booksapp.Book/DeleteBook", runtime.WithHTTPPathPattern("/book/{id}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/.Book/DeleteBook", runtime.WithHTTPPathPattern("/book/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -415,7 +415,7 @@ func RegisterBookHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/booksapp.Book/GetBooks", runtime.WithHTTPPathPattern("/book"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Book/GetBooks", runtime.WithHTTPPathPattern("/book"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -437,7 +437,7 @@ func RegisterBookHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/booksapp.Book/GetBook", runtime.WithHTTPPathPattern("/book/{id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Book/GetBook", runtime.WithHTTPPathPattern("/book/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -459,7 +459,7 @@ func RegisterBookHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/booksapp.Book/CreateBook", runtime.WithHTTPPathPattern("/createbook"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Book/CreateBook", runtime.WithHTTPPathPattern("/createbook"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -481,7 +481,7 @@ func RegisterBookHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/booksapp.Book/UpdateBook", runtime.WithHTTPPathPattern("/book"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Book/UpdateBook", runtime.WithHTTPPathPattern("/book"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -503,7 +503,7 @@ func RegisterBookHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/booksapp.Book/DeleteBook", runtime.WithHTTPPathPattern("/book/{id}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/.Book/DeleteBook", runtime.WithHTTPPathPattern("/book/{id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return

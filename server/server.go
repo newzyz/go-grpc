@@ -22,7 +22,8 @@ const (
 	grpc_gateway_port = ":3001"
 )
 const (
-	host     = "localhost"
+	// Docker IP
+	host     = "172.26.0.1"
 	port     = 5435
 	user     = "root"
 	password = "root"
@@ -58,6 +59,7 @@ func main() {
 	pb2.RegisterCustomerServer(s, &customerServer{})
 
 	log.Printf("server listening at %v", lis.Addr())
+	log.Printf("GRPC gateway port: %v", grpc_gateway_port)
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to server %v", err)
 	}
