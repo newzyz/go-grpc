@@ -30,8 +30,11 @@ go install \
 <pre>
   docker compose up
 </pre>
- <p> #Use dbbackup.sql in dir /restored_db/dbbackup.sql to restored DB </p>
- 
+    
+<pre> 
+    #Use dbbackup.sql in directory /restored_db/dbbackup.sql to restored DB PORT: localhost:5435 USER:root PASSWORD:root manually
+</pre>
+    
 <b>#1 Run go</b>
 <p>Run go locally </p>
 <pre>
