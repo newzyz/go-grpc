@@ -44,7 +44,6 @@ go install \
 </pre>
 
 <b>Upload File</b>
-<p>To Run go locally </p>
 <pre>
     go run ./client/main.go icon.png #file path
 </pre>
