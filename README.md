@@ -30,13 +30,15 @@ go install \
 <pre>
   docker compose up
 </pre>
+<- if requests and founded connect: connection refused error change go to /server/server.go change constant host to that docker host instead and build again ->
+
 <b>Manually</b>
 <pre> 
-  Use dbbackup.sql in directory /restored_db/dbbackup.sql to manually restored DB PORT: "localhost:5435" USER:"root" PASSWORD:"root"
+  Use dbbackup.sql in directory /restored_db/dbbackup.sql to manually restored DB HOST: "localhost" PORT: "5435" USER:"root" PASSWORD:"root"
 </pre>
     
-<b>#1 Run go</b>
-<p>Run go locally </p>
+<b>Run go</b>
+<p>To Run go locally </p>
 <pre>
   make go-run 
 </pre>
