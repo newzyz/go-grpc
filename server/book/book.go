@@ -9,6 +9,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/google/uuid"
 	"github.com/newzyz/go-grpc/server/storage"
 
 	_ "github.com/lib/pq"
@@ -19,7 +20,7 @@ import (
 )
 
 const (
-	// Docker IP
+	// Docker IP IF IN DOCKER
 	host     = "localhost"
 	port     = 5435
 	user     = "root"
@@ -57,7 +58,7 @@ func OpenConnection() *sql.DB {
 
 func (s Server) Download(req *pb.DownloadRequest, responseStream pb.Book_DownloadServer) error {
 	bufferSize := 64 * 1024 //64KiB
-	file, err := os.Open("C:/Users/Newzyz/Desktop/finaltest/go-grpc/server/tmp/" + req.GetName())
+	file, err := os.Open("./server/tmp/" + req.GetName())
 	if err != nil {
 		fmt.Println(err)
 		return err
@@ -85,13 +86,14 @@ func (s Server) Download(req *pb.DownloadRequest, responseStream pb.Book_Downloa
 }
 
 func (s Server) Upload(stream pb.Book_UploadServer) error {
-
-	name := "some-unique-name"
+	//unique name
+	name := (uuid.New()).String()
 	initial := true
 	file := storage.NewFile(name)
 	for {
 		req, err := stream.Recv()
 		if initial {
+			//GET FILE TYPE AND CONCAT TO FILE NAME
 			name += req.GetMime()
 			file = storage.NewFile(name)
 			initial = false

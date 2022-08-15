@@ -11,6 +11,7 @@ require (
 
 require (
 	github.com/gabriel-vasile/mimetype v1.4.1
+	github.com/google/uuid v1.3.0
 	google.golang.org/genproto v0.0.0-20220805133916-01dd62135a58
 )
 

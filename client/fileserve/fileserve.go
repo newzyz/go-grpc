@@ -25,7 +25,7 @@ func NewClient(conn grpc.ClientConnInterface, storage storage.Manager) Client {
 	}
 }
 
-func (c Client) Upload(ctx context.Context, file string) (string, error) {
+func (c Client) UploadBook(ctx context.Context, file string) (string, error) {
 	ctx, cancel := context.WithDeadline(ctx, time.Now().Add(10*time.Second))
 	defer cancel()
 
@@ -66,7 +66,7 @@ func (c Client) Upload(ctx context.Context, file string) (string, error) {
 	return res.GetName(), nil
 }
 
-func (c Client) Download(ctx context.Context, file string) (string, error) {
+func (c Client) DownloadBook(ctx context.Context, file string) (string, error) {
 	ctx, cancel := context.WithDeadline(ctx, time.Now().Add(10*time.Second))
 	defer cancel()
 

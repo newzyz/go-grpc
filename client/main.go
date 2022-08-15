@@ -26,14 +26,14 @@ func main() {
 
 	// Start uploading the file. Error if failed, otherwise echo download URL.
 	client := pb.NewClient(conn, storage.New("./downloaded/"))
-	name, err := client.Upload(context.Background(), flag.Arg(0))
+	name, err := client.UploadBook(context.Background(), flag.Arg(0))
 	if err != nil {
 		log.Fatalln(err)
 	}
 	log.Println(name)
 
 	// Start downloading the file. Error if failed
-	fname, err := client.Download(context.Background(), "some-unique-name.png")
+	fname, err := client.DownloadBook(context.Background(), "8d70b6be-8d46-4c01-af20-3b09d1aabf9a.png")
 	if err != nil {
 		log.Fatalln(err)
 	}

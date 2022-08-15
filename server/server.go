@@ -24,8 +24,8 @@ const (
 )
 
 func main() {
-	bookSrv := book.NewServer(storage.New("/tmp/"))
-	customerSrv := customer.NewServer(storage.New("/tmp2/"))
+	bookSrv := book.NewServer(storage.New("./server/tmp/"))
+	customerSrv := customer.NewServer(storage.New("./server/tmp2/"))
 	go func() {
 		//mux
 		mux := runtime.NewServeMux()
@@ -47,8 +47,8 @@ func main() {
 	pb.RegisterBookServer(s, bookSrv)
 	pb2.RegisterCustomerServer(s, customerSrv)
 
-	log.Printf("server listening at %v", lis.Addr())
-	log.Printf("GRPC gateway port: %v", grpc_gateway_port)
+	log.Printf("GRPC server listening at %v", lis.Addr())
+	log.Printf("GRPC gateway HTTP listening at %v", grpc_gateway_port)
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to server %v", err)
 	}
