@@ -14,18 +14,18 @@ import (
 	pb "github.com/newzyz/go-grpc/services/booksapp"
 )
 
-type Client struct {
+type bookClient struct {
 	client  pb.BookClient
 	storage storage.Manager
 }
 
-func NewClient(conn grpc.ClientConnInterface, storage storage.Manager) Client {
-	return Client{
+func NewBookClient(conn grpc.ClientConnInterface, storage storage.Manager) bookClient {
+	return bookClient{
 		client: pb.NewBookClient(conn), storage: storage,
 	}
 }
 
-func (c Client) UploadBook(ctx context.Context, file string) (string, error) {
+func (c bookClient) UploadBook(ctx context.Context, file string) (string, error) {
 	ctx, cancel := context.WithDeadline(ctx, time.Now().Add(10*time.Second))
 	defer cancel()
 
@@ -66,7 +66,7 @@ func (c Client) UploadBook(ctx context.Context, file string) (string, error) {
 	return res.GetName(), nil
 }
 
-func (c Client) DownloadBook(ctx context.Context, file string) (string, error) {
+func (c bookClient) DownloadBook(ctx context.Context, file string) (string, error) {
 	ctx, cancel := context.WithDeadline(ctx, time.Now().Add(10*time.Second))
 	defer cancel()
 

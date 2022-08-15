@@ -28,6 +28,7 @@ type CustomerClient interface {
 	UpdateCustomer(ctx context.Context, in *CustomerInfo, opts ...grpc.CallOption) (*Status, error)
 	DeleteCustomer(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error)
 	Upload(ctx context.Context, opts ...grpc.CallOption) (Customer_UploadClient, error)
+	Download(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (Customer_DownloadClient, error)
 }
 
 type customerClient struct {
@@ -117,6 +118,38 @@ func (x *customerUploadClient) CloseAndRecv() (*UploadResponse, error) {
 	return m, nil
 }
 
+func (c *customerClient) Download(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (Customer_DownloadClient, error) {
+	stream, err := c.cc.NewStream(ctx, &Customer_ServiceDesc.Streams[1], "/customersapp.Customer/Download", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &customerDownloadClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Customer_DownloadClient interface {
+	Recv() (*DownloadResponse, error)
+	grpc.ClientStream
+}
+
+type customerDownloadClient struct {
+	grpc.ClientStream
+}
+
+func (x *customerDownloadClient) Recv() (*DownloadResponse, error) {
+	m := new(DownloadResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // CustomerServer is the server API for Customer service.
 // All implementations must embed UnimplementedCustomerServer
 // for forward compatibility
@@ -127,6 +160,7 @@ type CustomerServer interface {
 	UpdateCustomer(context.Context, *CustomerInfo) (*Status, error)
 	DeleteCustomer(context.Context, *Id) (*Status, error)
 	Upload(Customer_UploadServer) error
+	Download(*DownloadRequest, Customer_DownloadServer) error
 	mustEmbedUnimplementedCustomerServer()
 }
 
@@ -151,6 +185,9 @@ func (UnimplementedCustomerServer) DeleteCustomer(context.Context, *Id) (*Status
 }
 func (UnimplementedCustomerServer) Upload(Customer_UploadServer) error {
 	return status.Errorf(codes.Unimplemented, "method Upload not implemented")
+}
+func (UnimplementedCustomerServer) Download(*DownloadRequest, Customer_DownloadServer) error {
+	return status.Errorf(codes.Unimplemented, "method Download not implemented")
 }
 func (UnimplementedCustomerServer) mustEmbedUnimplementedCustomerServer() {}
 
@@ -281,6 +318,27 @@ func (x *customerUploadServer) Recv() (*UploadRequest, error) {
 	return m, nil
 }
 
+func _Customer_Download_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(DownloadRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(CustomerServer).Download(m, &customerDownloadServer{stream})
+}
+
+type Customer_DownloadServer interface {
+	Send(*DownloadResponse) error
+	grpc.ServerStream
+}
+
+type customerDownloadServer struct {
+	grpc.ServerStream
+}
+
+func (x *customerDownloadServer) Send(m *DownloadResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 // Customer_ServiceDesc is the grpc.ServiceDesc for Customer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -314,6 +372,11 @@ var Customer_ServiceDesc = grpc.ServiceDesc{
 			StreamName:    "Upload",
 			Handler:       _Customer_Upload_Handler,
 			ClientStreams: true,
+		},
+		{
+			StreamName:    "Download",
+			Handler:       _Customer_Download_Handler,
+			ServerStreams: true,
 		},
 	},
 	Metadata: "proto/customersapp.proto",

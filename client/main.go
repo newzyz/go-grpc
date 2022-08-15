@@ -25,18 +25,28 @@ func main() {
 	defer conn.Close()
 
 	// Start uploading the file. Error if failed, otherwise echo download URL.
-	client := pb.NewClient(conn, storage.New("./downloaded/"))
+	client := pb.NewBookClient(conn, storage.New("./downloaded/"))
+	// client2 := pb.NewCustomerClient(conn, storage.New("./downloaded/"))
 	name, err := client.UploadBook(context.Background(), flag.Arg(0))
 	if err != nil {
 		log.Fatalln(err)
 	}
+	// name2, err := client2.UploadCustomer(context.Background(), flag.Arg(0))
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
 	log.Println(name)
-
+	// log.Println(name2)
 	// Start downloading the file. Error if failed
-	fname, err := client.DownloadBook(context.Background(), "8d70b6be-8d46-4c01-af20-3b09d1aabf9a.png")
+	filename, err := client.DownloadBook(context.Background(), "8d70b6be-8d46-4c01-af20-3b09d1aabf9a.png")
 	if err != nil {
 		log.Fatalln(err)
 	}
-	log.Printf("Download Success file name: %s", fname)
+	// filename2, err := client2.DownloadCustomer(context.Background(), "d29a0602-c794-4e1f-9187-ea25c1ebf4c4.png")
+	// if err != nil {
+	// 	log.Fatalln(err)
+	// }
+	log.Printf("Download Success file book name: %s", filename)
+	// log.Printf("Download Success file customer name: %s", filename2)
 
 }

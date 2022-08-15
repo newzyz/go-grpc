@@ -281,6 +281,31 @@ func request_Customer_Upload_0(ctx context.Context, marshaler runtime.Marshaler,
 
 }
 
+func request_Customer_Download_0(ctx context.Context, marshaler runtime.Marshaler, client CustomerClient, req *http.Request, pathParams map[string]string) (Customer_DownloadClient, runtime.ServerMetadata, error) {
+	var protoReq DownloadRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	stream, err := client.Download(ctx, &protoReq)
+	if err != nil {
+		return nil, metadata, err
+	}
+	header, err := stream.Header()
+	if err != nil {
+		return nil, metadata, err
+	}
+	metadata.HeaderMD = header
+	return stream, metadata, nil
+
+}
+
 // RegisterCustomerHandlerServer registers the http handlers for service Customer to "mux".
 // UnaryRPC     :call CustomerServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -413,6 +438,13 @@ func RegisterCustomerHandlerServer(ctx context.Context, mux *runtime.ServeMux, s
 	})
 
 	mux.Handle("POST", pattern_Customer_Upload_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		err := status.Error(codes.Unimplemented, "streaming calls are not yet supported in the in-process transport")
+		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+		return
+	})
+
+	mux.Handle("POST", pattern_Customer_Download_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		err := status.Error(codes.Unimplemented, "streaming calls are not yet supported in the in-process transport")
 		_, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -592,6 +624,28 @@ func RegisterCustomerHandlerClient(ctx context.Context, mux *runtime.ServeMux, c
 
 	})
 
+	mux.Handle("POST", pattern_Customer_Download_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/customersapp.Customer/Download", runtime.WithHTTPPathPattern("/downloadBook"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Customer_Download_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Customer_Download_0(annotatedContext, mux, outboundMarshaler, w, req, func() (proto.Message, error) { return resp.Recv() }, mux.GetForwardResponseOptions()...)
+
+	})
+
 	return nil
 }
 
@@ -607,6 +661,8 @@ var (
 	pattern_Customer_DeleteCustomer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"customer", "id"}, ""))
 
 	pattern_Customer_Upload_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"uploadCustomer"}, ""))
+
+	pattern_Customer_Download_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"downloadBook"}, ""))
 )
 
 var (
@@ -621,4 +677,6 @@ var (
 	forward_Customer_DeleteCustomer_0 = runtime.ForwardResponseMessage
 
 	forward_Customer_Upload_0 = runtime.ForwardResponseMessage
+
+	forward_Customer_Download_0 = runtime.ForwardResponseStream
 )

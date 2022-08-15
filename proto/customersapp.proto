@@ -39,6 +39,13 @@ service Customer{
             body:"*"
         };
     }
+    
+    rpc Download(DownloadRequest) returns (stream DownloadResponse){
+        option (google.api.http) = {
+            post: "/downloadBook",
+            body:"*"
+        };
+    }
 }
 
 message CustomerInfo {
@@ -75,4 +82,13 @@ message UploadRequest {
  
 message UploadResponse {
     string name = 1;
+}
+
+message DownloadRequest {
+    string name = 1;
+}
+ 
+message DownloadResponse {
+    bytes chunk = 1;
+    string mime = 2;
 }

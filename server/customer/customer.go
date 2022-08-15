@@ -7,7 +7,9 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"os"
 
+	"github.com/google/uuid"
 	"github.com/newzyz/go-grpc/server/storage"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -37,11 +39,18 @@ func NewServer(storage storage.Manager) Server {
 	}
 }
 func (s Server) Upload(stream pb.Customer_UploadServer) error {
-	name := "some-unique-name.png"
+	//unique name
+	name := (uuid.New()).String()
+	initial := true
 	file := storage.NewFile(name)
-
 	for {
 		req, err := stream.Recv()
+		if initial {
+			//GET FILE TYPE AND CONCAT TO FILE NAME
+			name += req.GetMime()
+			file = storage.NewFile(name)
+			initial = false
+		}
 		if err == io.EOF {
 			if err := s.storage.Store(file); err != nil {
 				return status.Error(codes.Internal, err.Error())
@@ -58,7 +67,34 @@ func (s Server) Upload(stream pb.Customer_UploadServer) error {
 		}
 	}
 }
-
+func (s Server) Download(req *pb.DownloadRequest, responseStream pb.Customer_DownloadServer) error {
+	bufferSize := 64 * 1024 //64KiB
+	file, err := os.Open("./server/tmp2/" + req.GetName())
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	defer file.Close()
+	buff := make([]byte, bufferSize)
+	for {
+		bytesRead, err := file.Read(buff)
+		if err != nil {
+			if err != io.EOF {
+				fmt.Println(err)
+			}
+			break
+		}
+		resp := &pb.DownloadResponse{
+			Chunk: buff[:bytesRead],
+		}
+		err = responseStream.Send(resp)
+		if err != nil {
+			log.Println("error while sending chunk:", err)
+			return err
+		}
+	}
+	return nil
+}
 func OpenConnection() *sql.DB {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
