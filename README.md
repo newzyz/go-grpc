@@ -43,6 +43,10 @@ go install \
   make go-run 
 </pre>
 
+<b>Upload File</b>
+<pre>
+    go run ./client/main.go icon.png #file path
+</pre>
 <h1>#Request Spec</h1>
 <pre>
     POST http://localhost:3001/book #Getbooks require raw json {"page": int64,"per_page": int64}</br>
