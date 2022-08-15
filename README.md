@@ -47,6 +47,10 @@ go install \
 <pre>
     go run ./client/main.go icon.png #file path
 </pre>
+
+<pre>
+     POST http://localhost:3001/uploadFileHttp #Using mux require form data key "attachment": path to file </br>
+</pre>
 <h1>#Request Spec</h1>
 <pre>
     POST http://localhost:3001/book #Getbooks require raw json {"page": int64,"per_page": int64}</br>
