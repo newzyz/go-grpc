@@ -1,0 +1,21 @@
+Create OR REPLACE PROCEDURE AddActor (a_fname varchar(100),a_lname varchar(100), a_name INOUT character varying)
+
+LANGUAGE plpgsql AS
+
+$$ BEGIN
+
+INSERT INTO actor ( first_name, last_name ) Values (a_fname, a_lname ) RETURNING  actor_id INTO a_name;
+
+
+END $$;
+
+CALL addactor('Wittawat','Chuaypanang',null);
+
+SELECT * from actor 
+
+CALL addactor('Nam','Chuaypanang',null);
+
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE table_name = 'actor'
+
+SELECT * from actor;

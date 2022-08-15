@@ -27,6 +27,7 @@ type CustomerClient interface {
 	CreateCustomer(ctx context.Context, in *CustomerInfo, opts ...grpc.CallOption) (*Id, error)
 	UpdateCustomer(ctx context.Context, in *CustomerInfo, opts ...grpc.CallOption) (*Status, error)
 	DeleteCustomer(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error)
+	Upload(ctx context.Context, opts ...grpc.CallOption) (Customer_UploadClient, error)
 }
 
 type customerClient struct {
@@ -39,7 +40,7 @@ func NewCustomerClient(cc grpc.ClientConnInterface) CustomerClient {
 
 func (c *customerClient) GetCustomers(ctx context.Context, in *GetCustomersReq, opts ...grpc.CallOption) (*GetCustomersResp, error) {
 	out := new(GetCustomersResp)
-	err := c.cc.Invoke(ctx, "/Customer/GetCustomers", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/customersapp.Customer/GetCustomers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +49,7 @@ func (c *customerClient) GetCustomers(ctx context.Context, in *GetCustomersReq, 
 
 func (c *customerClient) GetCustomer(ctx context.Context, in *Id, opts ...grpc.CallOption) (*CustomerInfo, error) {
 	out := new(CustomerInfo)
-	err := c.cc.Invoke(ctx, "/Customer/GetCustomer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/customersapp.Customer/GetCustomer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +58,7 @@ func (c *customerClient) GetCustomer(ctx context.Context, in *Id, opts ...grpc.C
 
 func (c *customerClient) CreateCustomer(ctx context.Context, in *CustomerInfo, opts ...grpc.CallOption) (*Id, error) {
 	out := new(Id)
-	err := c.cc.Invoke(ctx, "/Customer/CreateCustomer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/customersapp.Customer/CreateCustomer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +67,7 @@ func (c *customerClient) CreateCustomer(ctx context.Context, in *CustomerInfo, o
 
 func (c *customerClient) UpdateCustomer(ctx context.Context, in *CustomerInfo, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
-	err := c.cc.Invoke(ctx, "/Customer/UpdateCustomer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/customersapp.Customer/UpdateCustomer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,11 +76,45 @@ func (c *customerClient) UpdateCustomer(ctx context.Context, in *CustomerInfo, o
 
 func (c *customerClient) DeleteCustomer(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
-	err := c.cc.Invoke(ctx, "/Customer/DeleteCustomer", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/customersapp.Customer/DeleteCustomer", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
+}
+
+func (c *customerClient) Upload(ctx context.Context, opts ...grpc.CallOption) (Customer_UploadClient, error) {
+	stream, err := c.cc.NewStream(ctx, &Customer_ServiceDesc.Streams[0], "/customersapp.Customer/Upload", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &customerUploadClient{stream}
+	return x, nil
+}
+
+type Customer_UploadClient interface {
+	Send(*UploadRequest) error
+	CloseAndRecv() (*UploadResponse, error)
+	grpc.ClientStream
+}
+
+type customerUploadClient struct {
+	grpc.ClientStream
+}
+
+func (x *customerUploadClient) Send(m *UploadRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *customerUploadClient) CloseAndRecv() (*UploadResponse, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(UploadResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 // CustomerServer is the server API for Customer service.
@@ -91,6 +126,7 @@ type CustomerServer interface {
 	CreateCustomer(context.Context, *CustomerInfo) (*Id, error)
 	UpdateCustomer(context.Context, *CustomerInfo) (*Status, error)
 	DeleteCustomer(context.Context, *Id) (*Status, error)
+	Upload(Customer_UploadServer) error
 	mustEmbedUnimplementedCustomerServer()
 }
 
@@ -112,6 +148,9 @@ func (UnimplementedCustomerServer) UpdateCustomer(context.Context, *CustomerInfo
 }
 func (UnimplementedCustomerServer) DeleteCustomer(context.Context, *Id) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCustomer not implemented")
+}
+func (UnimplementedCustomerServer) Upload(Customer_UploadServer) error {
+	return status.Errorf(codes.Unimplemented, "method Upload not implemented")
 }
 func (UnimplementedCustomerServer) mustEmbedUnimplementedCustomerServer() {}
 
@@ -136,7 +175,7 @@ func _Customer_GetCustomers_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Customer/GetCustomers",
+		FullMethod: "/customersapp.Customer/GetCustomers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServer).GetCustomers(ctx, req.(*GetCustomersReq))
@@ -154,7 +193,7 @@ func _Customer_GetCustomer_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Customer/GetCustomer",
+		FullMethod: "/customersapp.Customer/GetCustomer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServer).GetCustomer(ctx, req.(*Id))
@@ -172,7 +211,7 @@ func _Customer_CreateCustomer_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Customer/CreateCustomer",
+		FullMethod: "/customersapp.Customer/CreateCustomer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServer).CreateCustomer(ctx, req.(*CustomerInfo))
@@ -190,7 +229,7 @@ func _Customer_UpdateCustomer_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Customer/UpdateCustomer",
+		FullMethod: "/customersapp.Customer/UpdateCustomer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServer).UpdateCustomer(ctx, req.(*CustomerInfo))
@@ -208,7 +247,7 @@ func _Customer_DeleteCustomer_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Customer/DeleteCustomer",
+		FullMethod: "/customersapp.Customer/DeleteCustomer",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CustomerServer).DeleteCustomer(ctx, req.(*Id))
@@ -216,11 +255,37 @@ func _Customer_DeleteCustomer_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Customer_Upload_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(CustomerServer).Upload(&customerUploadServer{stream})
+}
+
+type Customer_UploadServer interface {
+	SendAndClose(*UploadResponse) error
+	Recv() (*UploadRequest, error)
+	grpc.ServerStream
+}
+
+type customerUploadServer struct {
+	grpc.ServerStream
+}
+
+func (x *customerUploadServer) SendAndClose(m *UploadResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *customerUploadServer) Recv() (*UploadRequest, error) {
+	m := new(UploadRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
 // Customer_ServiceDesc is the grpc.ServiceDesc for Customer service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Customer_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "Customer",
+	ServiceName: "customersapp.Customer",
 	HandlerType: (*CustomerServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -244,6 +309,12 @@ var Customer_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Customer_DeleteCustomer_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "Upload",
+			Handler:       _Customer_Upload_Handler,
+			ClientStreams: true,
+		},
+	},
 	Metadata: "proto/customersapp.proto",
 }

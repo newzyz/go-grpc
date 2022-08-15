@@ -9,7 +9,10 @@ require (
 	google.golang.org/protobuf v1.28.1
 )
 
-require google.golang.org/genproto v0.0.0-20220805133916-01dd62135a58
+require (
+	github.com/gabriel-vasile/mimetype v1.4.1
+	google.golang.org/genproto v0.0.0-20220805133916-01dd62135a58
+)
 
 require (
 	github.com/golang/glog v1.0.0 // indirect
@@ -24,4 +27,3 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 )
-

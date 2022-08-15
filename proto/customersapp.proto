@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option go_package = "/customersapp";
-// package customersapp;
+package customersapp;
 import "google/api/annotations.proto";
 
 service Customer{
@@ -33,6 +33,12 @@ service Customer{
             delete: "/customer/{id}",
         };
     }
+    rpc Upload(stream UploadRequest) returns (UploadResponse){
+        option (google.api.http) = {
+            post: "/uploadCustomer",
+            body:"*"
+        };
+    }
 }
 
 message CustomerInfo {
@@ -60,4 +66,13 @@ message GetCustomersReq {
 message GetCustomersResp {
     // The collection of books
     repeated CustomerInfo customers = 1;
+}
+
+message UploadRequest {
+    string mime = 1;
+    bytes chunk = 2;
+}
+ 
+message UploadResponse {
+    string name = 1;
 }

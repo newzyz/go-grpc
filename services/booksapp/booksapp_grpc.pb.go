@@ -27,6 +27,8 @@ type BookClient interface {
 	CreateBook(ctx context.Context, in *BookInfo, opts ...grpc.CallOption) (*Id, error)
 	UpdateBook(ctx context.Context, in *BookInfo, opts ...grpc.CallOption) (*Status, error)
 	DeleteBook(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error)
+	Upload(ctx context.Context, opts ...grpc.CallOption) (Book_UploadClient, error)
+	Download(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (Book_DownloadClient, error)
 }
 
 type bookClient struct {
@@ -39,7 +41,7 @@ func NewBookClient(cc grpc.ClientConnInterface) BookClient {
 
 func (c *bookClient) GetBooks(ctx context.Context, in *GetBooksReq, opts ...grpc.CallOption) (*GetBooksResp, error) {
 	out := new(GetBooksResp)
-	err := c.cc.Invoke(ctx, "/Book/GetBooks", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/booksapp.Book/GetBooks", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +50,7 @@ func (c *bookClient) GetBooks(ctx context.Context, in *GetBooksReq, opts ...grpc
 
 func (c *bookClient) GetBook(ctx context.Context, in *Id, opts ...grpc.CallOption) (*BookInfo, error) {
 	out := new(BookInfo)
-	err := c.cc.Invoke(ctx, "/Book/GetBook", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/booksapp.Book/GetBook", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +59,7 @@ func (c *bookClient) GetBook(ctx context.Context, in *Id, opts ...grpc.CallOptio
 
 func (c *bookClient) CreateBook(ctx context.Context, in *BookInfo, opts ...grpc.CallOption) (*Id, error) {
 	out := new(Id)
-	err := c.cc.Invoke(ctx, "/Book/CreateBook", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/booksapp.Book/CreateBook", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -66,7 +68,7 @@ func (c *bookClient) CreateBook(ctx context.Context, in *BookInfo, opts ...grpc.
 
 func (c *bookClient) UpdateBook(ctx context.Context, in *BookInfo, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
-	err := c.cc.Invoke(ctx, "/Book/UpdateBook", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/booksapp.Book/UpdateBook", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -75,11 +77,77 @@ func (c *bookClient) UpdateBook(ctx context.Context, in *BookInfo, opts ...grpc.
 
 func (c *bookClient) DeleteBook(ctx context.Context, in *Id, opts ...grpc.CallOption) (*Status, error) {
 	out := new(Status)
-	err := c.cc.Invoke(ctx, "/Book/DeleteBook", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/booksapp.Book/DeleteBook", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
+}
+
+func (c *bookClient) Upload(ctx context.Context, opts ...grpc.CallOption) (Book_UploadClient, error) {
+	stream, err := c.cc.NewStream(ctx, &Book_ServiceDesc.Streams[0], "/booksapp.Book/Upload", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &bookUploadClient{stream}
+	return x, nil
+}
+
+type Book_UploadClient interface {
+	Send(*UploadRequest) error
+	CloseAndRecv() (*UploadResponse, error)
+	grpc.ClientStream
+}
+
+type bookUploadClient struct {
+	grpc.ClientStream
+}
+
+func (x *bookUploadClient) Send(m *UploadRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *bookUploadClient) CloseAndRecv() (*UploadResponse, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(UploadResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func (c *bookClient) Download(ctx context.Context, in *DownloadRequest, opts ...grpc.CallOption) (Book_DownloadClient, error) {
+	stream, err := c.cc.NewStream(ctx, &Book_ServiceDesc.Streams[1], "/booksapp.Book/Download", opts...)
+	if err != nil {
+		return nil, err
+	}
+	x := &bookDownloadClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type Book_DownloadClient interface {
+	Recv() (*DownloadResponse, error)
+	grpc.ClientStream
+}
+
+type bookDownloadClient struct {
+	grpc.ClientStream
+}
+
+func (x *bookDownloadClient) Recv() (*DownloadResponse, error) {
+	m := new(DownloadResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 // BookServer is the server API for Book service.
@@ -91,6 +159,8 @@ type BookServer interface {
 	CreateBook(context.Context, *BookInfo) (*Id, error)
 	UpdateBook(context.Context, *BookInfo) (*Status, error)
 	DeleteBook(context.Context, *Id) (*Status, error)
+	Upload(Book_UploadServer) error
+	Download(*DownloadRequest, Book_DownloadServer) error
 	mustEmbedUnimplementedBookServer()
 }
 
@@ -112,6 +182,12 @@ func (UnimplementedBookServer) UpdateBook(context.Context, *BookInfo) (*Status, 
 }
 func (UnimplementedBookServer) DeleteBook(context.Context, *Id) (*Status, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteBook not implemented")
+}
+func (UnimplementedBookServer) Upload(Book_UploadServer) error {
+	return status.Errorf(codes.Unimplemented, "method Upload not implemented")
+}
+func (UnimplementedBookServer) Download(*DownloadRequest, Book_DownloadServer) error {
+	return status.Errorf(codes.Unimplemented, "method Download not implemented")
 }
 func (UnimplementedBookServer) mustEmbedUnimplementedBookServer() {}
 
@@ -136,7 +212,7 @@ func _Book_GetBooks_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Book/GetBooks",
+		FullMethod: "/booksapp.Book/GetBooks",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).GetBooks(ctx, req.(*GetBooksReq))
@@ -154,7 +230,7 @@ func _Book_GetBook_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Book/GetBook",
+		FullMethod: "/booksapp.Book/GetBook",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).GetBook(ctx, req.(*Id))
@@ -172,7 +248,7 @@ func _Book_CreateBook_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Book/CreateBook",
+		FullMethod: "/booksapp.Book/CreateBook",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).CreateBook(ctx, req.(*BookInfo))
@@ -190,7 +266,7 @@ func _Book_UpdateBook_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Book/UpdateBook",
+		FullMethod: "/booksapp.Book/UpdateBook",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).UpdateBook(ctx, req.(*BookInfo))
@@ -208,7 +284,7 @@ func _Book_DeleteBook_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/Book/DeleteBook",
+		FullMethod: "/booksapp.Book/DeleteBook",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).DeleteBook(ctx, req.(*Id))
@@ -216,11 +292,58 @@ func _Book_DeleteBook_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Book_Upload_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(BookServer).Upload(&bookUploadServer{stream})
+}
+
+type Book_UploadServer interface {
+	SendAndClose(*UploadResponse) error
+	Recv() (*UploadRequest, error)
+	grpc.ServerStream
+}
+
+type bookUploadServer struct {
+	grpc.ServerStream
+}
+
+func (x *bookUploadServer) SendAndClose(m *UploadResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *bookUploadServer) Recv() (*UploadRequest, error) {
+	m := new(UploadRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+func _Book_Download_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(DownloadRequest)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(BookServer).Download(m, &bookDownloadServer{stream})
+}
+
+type Book_DownloadServer interface {
+	Send(*DownloadResponse) error
+	grpc.ServerStream
+}
+
+type bookDownloadServer struct {
+	grpc.ServerStream
+}
+
+func (x *bookDownloadServer) Send(m *DownloadResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
 // Book_ServiceDesc is the grpc.ServiceDesc for Book service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Book_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "Book",
+	ServiceName: "booksapp.Book",
 	HandlerType: (*BookServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -244,6 +367,17 @@ var Book_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Book_DeleteBook_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "Upload",
+			Handler:       _Book_Upload_Handler,
+			ClientStreams: true,
+		},
+		{
+			StreamName:    "Download",
+			Handler:       _Book_Download_Handler,
+			ServerStreams: true,
+		},
+	},
 	Metadata: "proto/booksapp.proto",
 }

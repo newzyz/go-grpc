@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option go_package = "/booksapp";
-// package booksapp;
+package booksapp;
 
 import "google/api/annotations.proto";
 
@@ -34,6 +34,21 @@ service Book{
             delete: "/book/{id}"
         };
     }
+
+    rpc Upload(stream UploadRequest) returns (UploadResponse){
+        option (google.api.http) = {
+            post: "/uploadBook",
+            body:"*"
+        };
+    }
+
+    rpc Download(DownloadRequest) returns (stream DownloadResponse){
+        option (google.api.http) = {
+            post: "/downloadBook",
+            body:"*"
+        };
+    }
+
 }
 
 message BookInfo {
@@ -61,4 +76,21 @@ message GetBooksReq {
 message GetBooksResp {
     // The collection of books
     repeated BookInfo books = 1;
+}
+message UploadRequest {
+    string mime = 1;
+    bytes chunk = 2;
+}
+ 
+message UploadResponse {
+    string name = 1;
+}
+
+message DownloadRequest {
+    string name = 1;
+}
+ 
+message DownloadResponse {
+    bytes chunk = 1;
+    string mime = 2;
 }

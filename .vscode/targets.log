@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Aug 09 15:58:18 2022
+# Make data base, printed on Mon Aug 15 10:12:21 2022
 
 # Variables
 
@@ -23,7 +23,7 @@ USERPROFILE = C:\Users\Newzyz
 # environment
 LOCALAPPDATA = C:\Users\Newzyz\AppData\Local
 # environment
-VSCODE_CWD = C:\Users\Newzyz\Desktop\mad\go-grpc
+VSCODE_CWD = C:\Users\Newzyz\Desktop\finaltest\go-grpc
 # environment
 CHOCOLATEYINSTALL = C:\ProgramData\chocolatey
 # environment
@@ -39,7 +39,7 @@ GOPATH = C:\Users\Newzyz\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_6972_CSKCPAJOHPHETJFL
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_22404_ASJXDCCGZCIIGHFY
 # environment
 FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
@@ -53,7 +53,7 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 %F = $(notdir $%)
 # environment
-VSCODE_CODE_CACHE_PATH = C:\Users\Newzyz\AppData\Roaming\Code\CachedData\da76f93349a72022ca4670c1b84860304616aaa2
+VSCODE_CODE_CACHE_PATH = C:\Users\Newzyz\AppData\Roaming\Code\CachedData\6d9b74a70ca9c7733b29f0456fd8195364076dda
 # environment
 LANG = C
 # default
@@ -69,7 +69,7 @@ MAKEFLAGS = pqrR
 # environment
 ONEDRIVE = C:\Users\Newzyz\OneDrive
 # makefile
-CURDIR := c:/Users/Newzyz/Desktop/mad/go-grpc
+CURDIR := c:/Users/Newzyz/Desktop/finaltest/go-grpc
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # automatic
@@ -89,7 +89,7 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 6972
+VSCODE_PID = 22404
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -187,7 +187,7 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 TEMP = C:\Users\Newzyz\AppData\Local\Temp
 # environment
-VSCODE_IPC_HOOK = \\.\pipe\c8d4135d345dd8a39f46d60d128455b8-1.70.0-main-sock
+VSCODE_IPC_HOOK = \\.\pipe\c8d4135d345dd8a39f46d60d128455b8-1.70.1-main-sock
 # environment
 GOPROXY = https://proxy.golang.org,direct
 # default
@@ -219,9 +219,9 @@ PROCESSOR_IDENTIFIER = AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD
 
 # Directories
 
-# . (key c:/Users/Newzyz/Desktop/mad/go-grpc, mtime 1659983392): 18 files, no impossibilities.
+# . (key c:/Users/Newzyz/Desktop/finaltest/go-grpc, mtime 1660197628): 19 files, no impossibilities.
 
-# 18 files, no impossibilities in 1 directories.
+# 19 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -239,7 +239,7 @@ db-run:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-09 01:38:18
+#  Last modified 2022-08-11 13:59:24
 #  File has been updated.
 #  Successfully updated.
 
@@ -273,7 +273,7 @@ create:
 	protoc -I . --grpc-gateway_out ./services ./proto/booksapp.proto	
 	protoc --go_out=./services ./proto/customersapp.proto 
 	protoc --go-grpc_out=./services ./proto/customersapp.proto  
-	protoc -I . --grpc-gateway_out ./services ./proto/customersapp.proto	
+	protoc -I . --grpc-gateway_out ./services ./proto/customersapp.proto
 
 # files hash-table stats:
 # Load=7/1024=1%, Rehash=0, Collisions=0/17=0%
@@ -283,12 +283,12 @@ create:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 24 / storage = 193 B / avg = 8 B
-# current buf: size = 8174 B / used = 193 B / count = 24 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 25 / storage = 200 B / avg = 8 B
+# current buf: size = 8174 B / used = 200 B / count = 25 / avg = 8 B
 
-# strcache performance: lookups = 31 / hit rate = 22%
+# strcache performance: lookups = 32 / hit rate = 21%
 # hash-table stats:
-# Load=24/8192=0%, Rehash=0, Collisions=0/31=0%
-# Finished Make data base on Tue Aug 09 15:58:18 2022
+# Load=25/8192=0%, Rehash=0, Collisions=0/32=0%
+# Finished Make data base on Mon Aug 15 10:12:21 2022
 
  
