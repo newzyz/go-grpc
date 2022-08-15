@@ -76,7 +76,7 @@ func handleBinaryFileUpload(w http.ResponseWriter, r *http.Request, params map[s
 	fmt.Println(header.Filename)
 	fileExtension := filepath.Ext(header.Filename)
 	filename := uuid.New().String() + fileExtension
-	fo, err := os.Create("./server/up/" + filename)
+	fo, err := os.Create("./server/tmpHttp/" + filename)
 	if err != nil {
 		fmt.Println(err)
 		return
