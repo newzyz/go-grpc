@@ -48,7 +48,6 @@ service Book{
             body:"*"
         };
     }
-
 }
 
 message BookInfo {
