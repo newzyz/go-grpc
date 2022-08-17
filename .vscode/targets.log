@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug 15 10:12:21 2022
+# Make data base, printed on Wed Aug 17 10:51:10 2022
 
 # Variables
 
@@ -39,7 +39,7 @@ GOPATH = C:\Users\Newzyz\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_22404_ASJXDCCGZCIIGHFY
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_8128_QEEVULPKJEPGVUUX
 # environment
 FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
@@ -89,7 +89,7 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 22404
+VSCODE_PID = 8128
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -219,7 +219,7 @@ PROCESSOR_IDENTIFIER = AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD
 
 # Directories
 
-# . (key c:/Users/Newzyz/Desktop/finaltest/go-grpc, mtime 1660197628): 19 files, no impossibilities.
+# . (key c:/Users/Newzyz/Desktop/finaltest/go-grpc, mtime 1660553898): 19 files, no impossibilities.
 
 # 19 files, no impossibilities in 1 directories.
 
@@ -239,11 +239,12 @@ db-run:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-11 13:59:24
+#  Last modified 2022-08-15 14:48:31
 #  File has been updated.
 #  Successfully updated.
 
-go-run:
+go-ru 
+n:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -289,6 +290,6 @@ create:
 # strcache performance: lookups = 32 / hit rate = 21%
 # hash-table stats:
 # Load=25/8192=0%, Rehash=0, Collisions=0/32=0%
-# Finished Make data base on Mon Aug 15 10:12:21 2022
+# Finished Make data base on Wed Aug 17 10:51:10 2022
 
  

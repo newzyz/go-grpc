@@ -60,6 +60,8 @@ func main() {
 	}
 }
 func handleBinaryFileUpload(w http.ResponseWriter, r *http.Request, params map[string]string) {
+	// Maximum upload of 10 MB files
+	// r.ParseMultipartForm(10 << 20)
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, fmt.Sprintf("failed to parse form: %s", err.Error()), http.StatusBadRequest)
@@ -76,37 +78,44 @@ func handleBinaryFileUpload(w http.ResponseWriter, r *http.Request, params map[s
 	fmt.Println(header.Filename)
 	fileExtension := filepath.Ext(header.Filename)
 	filename := uuid.New().String() + fileExtension
-	fo, err := os.Create("./server/up/" + filename)
+	fo, err := os.Create("./server/tmpHttp/" + filename)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	// close fo on exit and check for its returned error
-	defer func() {
-		if err := fo.Close(); err != nil {
-			panic(err)
-		}
-	}()
-
-	// make a buffer to keep chunks that are read
-	buf := make([]byte, 1024)
-	for {
-		// read a chunk
-		n, err := f.Read(buf)
-		if err != nil && err != io.EOF {
-			panic(err)
-		}
-		if n == 0 {
-			break
-		}
-
-		// write a chunk
-		if _, err := fo.Write(buf[:n]); err != nil {
-			panic(err)
-		}
+	// Copy the uploaded file to the created file on the filesystem
+	if _, err := io.Copy(fo, f); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
-	//
-	// Now do something with the io.Reader in `f`, i.e. read it into a buffer or stream it to a gRPC client side stream.
-	// Also `header` will contain the filename, size etc of the original file.
-	//
+
+	fmt.Fprintf(w, "Successfully Uploaded File\n")
+	// // close fo on exit and check for its returned error
+	// defer func() {
+	// 	if err := fo.Close(); err != nil {
+	// 		panic(err)
+	// 	}
+	// }()
+
+	// // make a buffer to keep chunks that are read
+	// buf := make([]byte, 1024)
+	// for {
+	// 	// read a chunk
+	// 	n, err := f.Read(buf)
+	// 	if err != nil && err != io.EOF {
+	// 		panic(err)
+	// 	}
+	// 	if n == 0 {
+	// 		break
+	// 	}
+
+	// 	// write a chunk
+	// 	if _, err := fo.Write(buf[:n]); err != nil {
+	// 		panic(err)
+	// 	}
+	// }
+	// //
+	// // Now do something with the io.Reader in `f`, i.e. read it into a buffer or stream it to a gRPC client side stream.
+	// // Also `header` will contain the filename, size etc of the original file.
+	// //
 }
