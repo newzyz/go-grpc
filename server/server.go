@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strconv"
 
 	"github.com/google/uuid"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -35,7 +36,7 @@ func main() {
 		//mux
 		mux := runtime.NewServeMux()
 		mux.HandlePath("POST", "/uploadFileHttp", handleBinaryFileUpload)
-
+		mux.HandlePath("GET", "/downloadFileHttp", handleDownload)
 		//Run concurrent
 		pb.RegisterBookHandlerServer(context.Background(), mux, bookSrv)
 		pb2.RegisterCustomerHandlerServer(context.Background(), mux, customerSrv)
@@ -59,6 +60,15 @@ func main() {
 		log.Fatalf("failed to server %v", err)
 	}
 }
+
+func handleDownload(w http.ResponseWriter, r *http.Request, params map[string]string) {
+	filePath := "./server/tmpHttp/rabbit.jpg"
+	filename := "rabbit.jpg"
+	w.Header().Set("Content-Disposition", "attachment; filename="+strconv.Quote(filename))
+	w.Header().Set("Content-Type", "application/octet-stream")
+	http.ServeFile(w, r, filePath)
+}
+
 func handleBinaryFileUpload(w http.ResponseWriter, r *http.Request, params map[string]string) {
 	// Maximum upload of 10 MB files
 	// r.ParseMultipartForm(10 << 20)
