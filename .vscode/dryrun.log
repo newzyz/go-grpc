@@ -4,6 +4,7 @@ protoc --go_out=./services ./proto/booksapp.proto
 protoc --go-grpc_out=./services ./proto/booksapp.proto  
 protoc -I . --grpc-gateway_out ./services ./proto/booksapp.proto	
 protoc --go_out=./services ./proto/customersapp.proto 
+ 
 protoc --go-grpc_out=./services ./proto/customersapp.proto  
 protoc -I . --grpc-gateway_out ./services ./proto/customersapp.proto
 make: Leaving directory 'c:/Users/Newzyz/Desktop/finaltest/go-grpc'

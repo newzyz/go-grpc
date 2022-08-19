@@ -36,7 +36,7 @@ func main() {
 		//mux
 		mux := runtime.NewServeMux()
 		mux.HandlePath("POST", "/uploadFileHttp", handleBinaryFileUpload)
-		mux.HandlePath("GET", "/downloadFileHttp", handleDownload)
+		mux.HandlePath("GET", "/downloadFileHttp/{filename}", handleDownload)
 		//Run concurrent
 		pb.RegisterBookHandlerServer(context.Background(), mux, bookSrv)
 		pb2.RegisterCustomerHandlerServer(context.Background(), mux, customerSrv)
@@ -62,8 +62,9 @@ func main() {
 }
 
 func handleDownload(w http.ResponseWriter, r *http.Request, params map[string]string) {
-	filePath := "./server/tmpHttp/rabbit.jpg"
-	filename := "rabbit.jpg"
+	filename := params["filename"]
+	filePath := "./server/tmpHttp/" + filename
+
 	w.Header().Set("Content-Disposition", "attachment; filename="+strconv.Quote(filename))
 	w.Header().Set("Content-Type", "application/octet-stream")
 	http.ServeFile(w, r, filePath)
