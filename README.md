@@ -49,7 +49,8 @@ go install \
 </pre>
 
 <pre>
-     POST http://localhost:3001/uploadFileHttp #Using mux require form data key "attachment": path to file </br>
+    POST http://localhost:3001/uploadFileHttp #Using mux require form data key "attachment": path to file </br>
+    GET http://localhost:3001//downloadFileHttp/{filename} #Using mux require form data "filename.type" Look file at dir ./server/tmpHttp </br>
 </pre>
 <h1>#Request Spec</h1>
 <pre>
