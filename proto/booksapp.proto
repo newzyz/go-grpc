@@ -2,7 +2,6 @@ syntax = "proto3";
 
 option go_package = "/booksapp";
 package booksapp;
-
 import "google/api/annotations.proto";
 
 service Book{

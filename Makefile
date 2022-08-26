@@ -11,3 +11,5 @@ db-run:
 go-run:
 	go run server/server.go
 
+client-run:
+	go run client/main.go

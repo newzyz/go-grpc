@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Aug 19 10:32:31 2022
+# Make data base, printed on Fri Aug 26 08:41:40 2022
 
 # Variables
 
@@ -39,7 +39,7 @@ GOPATH = C:\Users\Newzyz\go
 # automatic
 @D = $(patsubst %/,%,$(patsubst %\,%,$(dir $@)))
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_20208_JAGYKIFZAUOALIIB
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_6724_OURXPYVFBCCPKAAU
 # environment
 FPS_BROWSER_USER_PROFILE_STRING = Default
 # environment
@@ -86,10 +86,11 @@ COMMONPROGRAMW6432 = C:\Program Files\Common Files
 +D = $(patsubst %/,%,$(patsubst %\,%,$(dir $+)))
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST := Makefile
-# automatic
+# autom 
+atic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 20208
+VSCODE_PID = 6724
 # automatic
 ?D = $(patsubst %/,%,$(patsubst %\,%,$(dir $?)))
 # automatic
@@ -219,7 +220,8 @@ PROCESSOR_IDENTIFIER = AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD
 
 # Directories
 
-# . (key c:/Users/Newzyz/Desktop/finaltest/go-grpc, mtime 1660708939): 19 files, no impossibilities.
+# . (key c:/Users/Newzyz/Desktop/f 
+inaltest/go-grpc, mtime 1661427664): 19 files, no impossibilities.
 
 # 19 files, no impossibilities in 1 directories.
 
@@ -276,8 +278,7 @@ create:
 	protoc -I . --grpc-gateway_out ./services ./proto/customersapp.proto
 
 # files hash-table stats:
-# L 
-oad=7/1024=1%, Rehash=0, Collisions=0/17=0%
+# Load=7/1024=1%, Rehash=0, Collisions=0/17=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
@@ -290,6 +291,6 @@ oad=7/1024=1%, Rehash=0, Collisions=0/17=0%
 # strcache performance: lookups = 32 / hit rate = 21%
 # hash-table stats:
 # Load=25/8192=0%, Rehash=0, Collisions=0/32=0%
-# Finished Make data base on Fri Aug 19 10:32:31 2022
+# Finished Make data base on Fri Aug 26 08:41:40 2022
 
  

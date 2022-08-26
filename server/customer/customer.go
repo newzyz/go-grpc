@@ -21,7 +21,7 @@ import (
 
 const (
 	// Docker IP
-	host     = "localhost"
+	host     = "172.23.0.1"
 	port     = 5435
 	user     = "root"
 	password = "root"

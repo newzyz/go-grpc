@@ -13,14 +13,27 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-
 	_ "github.com/lib/pq"
+
+	// "go.opentelemetry.io/otel"
+	// "go.opentelemetry.io/otel/exporters/trace/jaeger"
+	// "go.opentelemetry.io/otel/propagation"
+	// "go.opentelemetry.io/otel/sdk/resource"
+	sdktrace "go.opentelemetry.io/otel/sdk/trace"
+	// "go.opentelemetry.io/otel/semconv"
+
+	// "go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
+
+	// gtrace "github.com/moxiaomomo/grpc-jaeger"
 	"github.com/newzyz/go-grpc/server/book"
 	"github.com/newzyz/go-grpc/server/customer"
 	"github.com/newzyz/go-grpc/server/storage"
 	pb "github.com/newzyz/go-grpc/services/booksapp"
 	pb2 "github.com/newzyz/go-grpc/services/customersapp"
-
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/exporters/jaeger"
+	"go.opentelemetry.io/otel/propagation"
 	"google.golang.org/grpc"
 )
 
@@ -30,6 +43,27 @@ const (
 )
 
 func main() {
+
+	exp, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint("http://localhost:14268/api/traces")))
+	if err != nil {
+		log.Fatal(err)
+	}
+	bsp := sdktrace.NewBatchSpanProcessor(exp)
+	tp := sdktrace.NewTracerProvider(
+		sdktrace.WithSampler(sdktrace.AlwaysSample()),
+		// sdktrace.WithResource(resource.NewWithAttributes(
+		// 	string(semconv.ServiceNameKey),
+		// )),
+		sdktrace.WithSpanProcessor(bsp),
+	)
+	otel.SetTracerProvider(tp)
+	otel.SetTextMapPropagator(
+		propagation.NewCompositeTextMapPropagator(
+			propagation.TraceContext{},
+			propagation.Baggage{},
+		),
+	)
+
 	bookSrv := book.NewServer(storage.New("./server/tmp/"))
 	customerSrv := customer.NewServer(storage.New("./server/tmp2/"))
 	go func() {
@@ -44,15 +78,29 @@ func main() {
 		//http server
 		log.Fatalln(http.ListenAndServe(grpc_gateway_port, mux))
 	}()
+	// var servOpts []grpc.ServerOption
+	// tracer, _, err := gtrace.NewJaegerTracer("testSrv", "127.0.0.1:6831")
+	// if err != nil {
+	// 	fmt.Printf("new tracer err: %+v\n", err)
+	// 	os.Exit(-1)
+	// }
+	// if tracer != nil {
+	// 	servOpts = append(servOpts, gtrace.ServerOption(tracer))
+	// }
+
+	// s := grpc.NewServer(servOpts...)
+	s := grpc.NewServer(
+		grpc.UnaryInterceptor(otelgrpc.UnaryServerInterceptor()),
+		grpc.StreamInterceptor(otelgrpc.StreamServerInterceptor()),
+	)
+
+	pb.RegisterBookServer(s, bookSrv)
+	pb2.RegisterCustomerServer(s, customerSrv)
 
 	lis, err := net.Listen("tcp", grpc_port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	s := grpc.NewServer()
-
-	pb.RegisterBookServer(s, bookSrv)
-	pb2.RegisterCustomerServer(s, customerSrv)
 
 	log.Printf("GRPC server listening at %v", lis.Addr())
 	log.Printf("GRPC gateway HTTP listening at %v", grpc_gateway_port)

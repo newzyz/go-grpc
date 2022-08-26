@@ -25,6 +25,30 @@ func NewBookClient(conn grpc.ClientConnInterface, storage storage.Manager) bookC
 	}
 }
 
+func (c bookClient) GetBookId(ctx context.Context, Id int64) {
+	ctx, cancel := context.WithDeadline(ctx, time.Now().Add(10*time.Second))
+	defer cancel()
+	book, err := c.client.GetBook(ctx, &pb.Id{Id: Id})
+	if err != nil {
+		log.Fatalf("%v.GetBook() = _ , %v", ctx, err)
+	}
+	res, err := c.client.GetBooks(ctx, &pb.GetBooksReq{Page: 1, PerPage: 4})
+	if err != nil {
+		log.Fatalf("%v.GetBooks() = _ , %v", ctx, err)
+	}
+	log.Println(book)
+	log.Println(res)
+}
+func (c bookClient) GetBooks(ctx context.Context, Page int64, Per int64) {
+	ctx, cancel := context.WithDeadline(ctx, time.Now().Add(10*time.Second))
+	defer cancel()
+	res, err := c.client.GetBooks(ctx, &pb.GetBooksReq{Page: Page, PerPage: Per})
+	if err != nil {
+		log.Fatalf("%v.GetBooks() = _ , %v", ctx, err)
+	}
+	log.Println(res)
+}
+
 func (c bookClient) UploadBook(ctx context.Context, file string) (string, error) {
 	ctx, cancel := context.WithDeadline(ctx, time.Now().Add(10*time.Second))
 	defer cancel()
